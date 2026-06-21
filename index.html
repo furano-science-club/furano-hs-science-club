@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>富良野地区科学部</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: sans-serif;
+      font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
       margin: 0;
       padding: 0;
       background: #f4f7f4;
       color: #222;
+      line-height: 1.7;
     }
     header {
       background: #2c5f3c;
@@ -18,15 +20,66 @@
       padding: 2rem 1rem;
       text-align: center;
     }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
+    header h1 { margin: 0 0 0.5rem; font-size: 1.6rem; }
     nav a {
       color: white;
       margin: 0 0.8rem;
       text-decoration: none;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    nav a:hover { opacity: 1; text-decoration: underline; }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    section { margin-bottom: 2.5rem; }
+    h2 {
+      border-left: 5px solid #2c5f3c;
+      padding-left: 0.6rem;
+      font-size: 1.3rem;
+    }
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+    .report-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .report-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: #ddd;
+      display: block;
+    }
+    .report-card .content {
+      padding: 1rem;
+    }
+    .report-card .date {
+      font-size: 0.8rem;
+      color: #777;
+    }
+    .report-card h3 {
+      margin: 0.3rem 0 0.5rem;
+      font-size: 1.05rem;
+    }
+    .report-card p {
+      font-size: 0.9rem;
+      margin: 0;
+      color: #444;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: #888;
     }
   </style>
 </head>
@@ -35,12 +88,54 @@
     <h1>富良野地区科学部</h1>
     <nav>
       <a href="/">ホーム</a>
-      <a href="/firefly">蛍マップ</a>
+      <a href="/about.html">活動紹介</a>
+      <a href="/firefly.html">蛍マップ</a>
     </nav>
   </header>
+
   <main>
-    <h2>活動紹介</h2>
-    <p>このサイトは富良野地区の科学部の活動を紹介するページです。現在準備中です。</p>
+    <section>
+      <h2>最近の活動報告</h2>
+      <div class="report-grid">
+
+        <div class="report-card">
+          <img src="/images/sample1.jpg" alt="活動報告の写真">
+          <div class="content">
+            <div class="date">2026年6月10日</div>
+            <h3>蛍の観測予備調査を行いました</h3>
+            <p>富良野市内の河川沿いで、観測ポイントの下見を行いました。水質や周辺環境を記録しました。</p>
+          </div>
+        </div>
+
+        <div class="report-card">
+          <img src="/images/sample2.jpg" alt="活動報告の写真">
+          <div class="content">
+            <div class="date">2026年5月28日</div>
+            <h3>部活紹介イベントに出展しました</h3>
+            <p>新入生向けの部活紹介で、これまでの研究内容をポスターで発表しました。</p>
+          </div>
+        </div>
+
+        <div class="report-card">
+          <img src="/images/sample3.jpg" alt="活動報告の写真">
+          <div class="content">
+            <div class="date">2026年5月12日</div>
+            <h3>蛍マップ作成プロジェクトを開始</h3>
+            <p>富良野地区における蛍の生息地調査・マッピングプロジェクトを始動しました。</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <h2>このサイトについて</h2>
+      <p>富良野地区科学部の活動を紹介するページです。蛍の生息地調査など、地域に根ざした研究を行っています。</p>
+    </section>
   </main>
+
+  <footer>
+    &copy; 2026 富良野地区科学部
+  </footer>
 </body>
 </html>
