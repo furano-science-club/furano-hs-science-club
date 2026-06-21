@@ -58,7 +58,7 @@
 
   <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     // 富良野地区の中心あたりの座標
     const map = L.map('map').setView([43.3417, 142.3833], 11);
@@ -68,29 +68,7 @@
       maxZoom: 19
     }).addTo(map);
 
-    // 仮の観測データ(テスト用)
-    const sightings = [
-      {
-        lat: 43.3553,
-        lng: 142.4781,
-        date: "2026-06-15",
-        note: "河川沿いの草地で複数匹確認"
-      },
-      {
-        lat: 43.4500,
-        lng: 142.4600,
-        date: "2026-06-18",
-        note: "水田の近くで観測"
-      },
-      {
-        lat: 43.2200,
-        lng: 142.3700,
-        date: "2026-06-20",
-        note: "森林に隣接した湿地で確認"
-      }
-    ];
-
-    // 蛍っぽい黄緑のアイコンを作る
+    // 蛍っぽいアイコン
     const fireflyIcon = L.icon({
       iconUrl: 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon.png',
       shadowUrl: 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-shadow.png',
@@ -98,9 +76,17 @@
       iconAnchor: [12, 41]
     });
 
-    sightings.forEach(s => {
-      L.marker([s.lat, s.lng], { icon: fireflyIcon })
-        .addTo(map)
-        .bindPopup(`<strong>観測日: ${s.date}</strong><br>${s.note}`);
-    });
+    // JSONファイルから観測データを読み込んでピンを立てる
+    fetch('/firefly-sightings.json')
+      .then(res => res.json())
+      .then(sightings => {
+        sightings.forEach(s => {
+          L.marker([s.lat, s.lng], { icon: fireflyIcon })
+            .addTo(map)
+            .bindPopup(`<strong>観測日: ${s.date}</strong><br>${s.note}`);
+        });
+      })
+      .catch(err => {
+        console.error('観測データの読み込みに失敗しました', err);
+      });
   </script>
