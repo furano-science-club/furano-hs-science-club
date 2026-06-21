@@ -40,17 +40,17 @@
       font-size: 0.92rem;
       color: #444;
     }
-    .jump-link {
-      display: inline-block;
+    .popup-pin-button {
       background: #2c5f3c;
       color: white;
-      padding: 0.5rem 1rem;
+      border: none;
+      padding: 0.4rem 0.8rem;
       border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-top: 0.4rem;
     }
-    .jump-link:hover { background: #244e32; }
+    .popup-pin-button:hover { background: #244e32; }
     .submit-section {
       max-width: 600px;
       margin: 2rem auto;
@@ -81,7 +81,7 @@
       font-size: 0.95rem;
     }
     .submit-section textarea { resize: vertical; min-height: 80px; }
-    .submit-section button {
+    .submit-section button[type="submit"] {
       margin-top: 1.2rem;
       background: #2c5f3c;
       color: white;
@@ -91,7 +91,7 @@
       font-size: 0.95rem;
       cursor: pointer;
     }
-    .submit-section button:hover { background: #244e32; }
+    .submit-section button[type="submit"]:hover { background: #244e32; }
     .submit-note {
       font-size: 0.82rem;
       color: #666;
@@ -119,8 +119,7 @@
   </header>
 
   <div class="map-intro">
-    <p>富良野地区(富良野市・上富良野町・中富良野町・南富良野町など)で観測された蛍の情報を地図に表示しています。</p>
-    <p><a href="#submit-section" class="jump-link">↓ 蛍を見つけた方はこちらから投稿できます</a></p>
+    <p>富良野地区(富良野市・上富良野町・中富良野町・南富良野町など)で観測された蛍の情報を地図に表示しています。地図をクリックして観測場所を指定してください。</p>
   </div>
 
   <div id="map"></div>
@@ -134,14 +133,14 @@
       <label for="lng">経度</label>
       <input type="text" id="lng" readonly required>
 
-      <label for="date">観測日</label>
-      <input type="date" id="date" required>
+      <label for="date">観測日(覚えている範囲で構いません)</label>
+      <input type="text" id="date" placeholder="例: 2020年7月頃" required>
 
       <label for="note">メモ(任意・300文字以内)</label>
       <textarea id="note" maxlength="300" placeholder="例: 川沿いの草むらで5匹ほど確認しました"></textarea>
 
       <button type="submit">送信する</button>
-      <p class="submit-note">※ 地図をクリックして場所を指定してから送信してください。送信内容は部活担当者の確認後に地図へ反映されます。</p>
+      <p class="submit-note">※ 送信内容は部活担当者の確認後に地図へ反映されます。</p>
     </form>
     <div id="submit-status"></div>
   </div>
@@ -177,15 +176,22 @@
         console.error('観測データの読み込みに失敗しました', err);
       });
 
-    // 地図をクリックすると緯度経度をフォームに自動入力
+    // 地図をクリックすると緯度経度をフォームに自動入力し、ポップアップにボタンを表示
     let tempMarker = null;
+
+    // グローバルに置いて、ポップアップ内のボタンから呼べるようにする
+    window.scrollToForm = function () {
+      document.getElementById('submit-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
     map.on('click', function (e) {
       document.getElementById('lat').value = e.latlng.lat.toFixed(6);
       document.getElementById('lng').value = e.latlng.lng.toFixed(6);
 
       if (tempMarker) map.removeLayer(tempMarker);
       tempMarker = L.marker(e.latlng).addTo(map)
-        .bindPopup('この場所を投稿します').openPopup();
+        .bindPopup('<div>この場所でよろしいですか?<br><button class="popup-pin-button" onclick="scrollToForm()">ここです!</button></div>')
+        .openPopup();
     });
 
     // フォーム送信処理
