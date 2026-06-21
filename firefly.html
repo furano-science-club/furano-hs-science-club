@@ -40,6 +40,17 @@
       font-size: 0.92rem;
       color: #444;
     }
+    .jump-link {
+      display: inline-block;
+      background: #2c5f3c;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    .jump-link:hover { background: #244e32; }
     .submit-section {
       max-width: 600px;
       margin: 2rem auto;
@@ -109,11 +120,12 @@
 
   <div class="map-intro">
     <p>富良野地区(富良野市・上富良野町・中富良野町・南富良野町など)で観測された蛍の情報を地図に表示しています。</p>
+    <p><a href="#submit-section" class="jump-link">↓ 蛍を見つけた方はこちらから投稿できます</a></p>
   </div>
 
   <div id="map"></div>
 
-  <div class="submit-section">
+  <div class="submit-section" id="submit-section">
     <h2>蛍を見つけたら教えてください</h2>
     <form id="sighting-form">
       <label for="lat">緯度(地図をクリックすると自動入力されます)</label>
